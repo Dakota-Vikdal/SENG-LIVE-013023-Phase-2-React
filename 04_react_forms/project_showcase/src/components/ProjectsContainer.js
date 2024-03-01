@@ -13,9 +13,13 @@ function ProjectsContainer() {
       .then((projectsData) => setProjects(projectsData));
   }
 
+  function onAddProject(newProject) {
+    setProjects(projects => [...projects, newProject])
+  }
+
   return (
     <>
-      <ProjectForm projects={projects}/>
+      <ProjectForm onAddProject={onAddProject}/>
       <ProjectList
         onLoadProjects={onLoadProjects}
         projects={projects}

@@ -1,14 +1,18 @@
 import React, {useState} from "react";
 
-function ProjectForm({projects}) {
+
+const initialState ={
+  "name": "",
+  "about": "",
+  "Phase": "",
+  "link": "",
+  "image": ""  
+}
+
+
+function ProjectForm({onAddProject}) {
   
-  const [formState, setFormState] =useState({
-    name:"",
-    about:"",
-    phase:"",
-    link:"",
-    image:"",
-  })
+  const [formState, setFormState] =useState({initialState})
 
   const {name, about, phase, link, image} = formState
 
@@ -18,7 +22,19 @@ function ProjectForm({projects}) {
       ...prevState,
       [name]: value
     }))
-    console.log(e.target.value)
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault()
+    // const newProject = {
+    //   name: name,
+    //   about: about,
+    //   phase: phase,
+    //   link: link,
+    //   image: image
+    // }
+    onAddProject(formState)
+    setFormState(initialState)
   }
   
   
@@ -27,7 +43,7 @@ function ProjectForm({projects}) {
 
   return (
     <section>
-      <form className="form" autoComplete="off">
+      <form className="form" autoComplete="off" onSubmit={handleSubmit}>
         <h3>Add New Project</h3>
 
         <label htmlFor="name">Name</label>
